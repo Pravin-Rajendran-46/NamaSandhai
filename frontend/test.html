@@ -1,0 +1,45 @@
+// Create a simple test page
+// frontend/test.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Connection</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <h1>Testing Supabase Connection</h1>
+    <div id="result"></div>
+    
+    <script>
+        const supabaseUrl = 'https://tosjqgjhlhefoiaadjvp.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRvc2pxZ2pobGhlZm9pYWFkanZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU3MTQ4MjgsImV4cCI6MjA4MTI5MDgyOH0.KLnzgyO2_rvk5dBOYw68tdYPOyes1be-thgDOGjCHR0'; // Replace with actual key
+        
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+        
+        async function test() {
+            const resultDiv = document.getElementById('result');
+            
+            try {
+                const { data, error } = await supabase
+                    .from('products')
+                    .select('*')
+                    .limit(3);
+                
+                if (error) {
+                    resultDiv.innerHTML = `<p style="color: red;">❌ Error: ${error.message}</p>`;
+                } else {
+                    resultDiv.innerHTML = `
+                        <p style="color: green;">✅ Connection successful!</p>
+                        <p>Found ${data.length} products</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (err) {
+                resultDiv.innerHTML = `<p style="color: red;">❌ Exception: ${err.message}</p>`;
+            }
+        }
+        
+        test();
+    </script>
+</body>
+</html>

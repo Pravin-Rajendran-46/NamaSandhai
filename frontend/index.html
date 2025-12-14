@@ -1,0 +1,166 @@
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Namma Sandhai - Local Marketplace</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&family=Montserrat:wght@700&family=Lato:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+    <style>
+        :root {
+            --primary: #5C146B;
+            --primary-light: #7a1c8f;
+            --secondary: #F3F7EC;
+            --accent: #E46C41;
+            --accent-light: #f18968;
+            --dark: #333333;
+            --light: #ffffff;
+            --gray: #6c757d;
+            --gray-light: #f8f9fa;
+        }
+    </style>
+    <!-- Add this to your frontend/index.html head section -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- Update the initialization script -->
+<script>
+    // Initialize Supabase
+    const supabaseUrl = 'https://tosjqgjhlhefoiaadjvp.supabase.co';
+    const supabaseKey = 'your-anon-key-here'; // Replace with your actual key
+    
+    window.supabase = supabase.createClient(supabaseUrl, supabaseKey);
+</script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🛒</span>
+                <span class="logo-text">Namma Sandhai</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="sell-product.html" class="nav-link sell-btn">
+                    <i class="fas fa-plus-circle"></i> Sell
+                </a>
+                <div class="location-selector">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span id="current-location">Detecting...</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Location Banner -->
+        <div class="location-banner" id="location-banner">
+            <div class="location-info">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Showing products near: <strong id="location-text">Your location</strong></span>
+            </div>
+            <button class="btn-change-location" id="change-location">
+                <i class="fas fa-edit"></i> Change
+            </button>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="products-grid" id="products-grid">
+            <!-- Products will be loaded here -->
+        </div>
+
+        <!-- Google Ads Slot -->
+        <div class="ad-slot" id="ad-slot-1">
+            <!-- Google Ad will be injected here -->
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Loading products near you...</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Namma Sandhai</h3>
+                    <p>Your local marketplace for buying and selling goods</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="sell-product.html">Sell Product</a>
+                    <a href="#">How it Works</a>
+                    <a href="#">Safety Tips</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-envelope"></i> support@nammasandhai.com</p>
+                    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                </div>
+            </div>
+            
+            <!-- Footer Ad Slot -->
+            <div class="footer-ad" id="footer-ad">
+                <!-- Google Ad will be injected here -->
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Namma Sandhai. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Location Modal -->
+    <div class="modal" id="location-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Select Your Location</h3>
+                <button class="modal-close" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="location-options">
+                    <div class="location-option" id="auto-locate">
+                        <i class="fas fa-location-arrow"></i>
+                        <div>
+                            <h4>Use Current Location</h4>
+                            <p>Automatically detect your location</p>
+                        </div>
+                    </div>
+                    <div class="location-divider">
+                        <span>OR</span>
+                    </div>
+                    <div class="manual-location">
+                        <h4>Select Manually</h4>
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" placeholder="Enter your city">
+                        </div>
+                        <div class="form-group">
+                            <label for="area">Area</label>
+                            <input type="text" id="area" placeholder="Enter your area">
+                        </div>
+                        <button class="btn-primary" id="save-location">Save Location</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/location.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/ads.js"></script>
+</body>
+</html>
